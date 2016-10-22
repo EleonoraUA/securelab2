@@ -1,0 +1,44 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            {% if admin %}
+                <img class="img-thumbnail" src={{ asset('bundles/framework/images/admin.png') }}>
+
+            {% else %}
+                <img class="img-thumbnail" src={{ asset('bundles/framework/images/user_icon.png') }}>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            <div class="caption">
+                <h3>{{ user.username }}</h3>
+                <a href="/profile/change-password" class="btn btn-warning">Change password</a>
+            </div>
+            {% if admin %}
+                <a href="/newUser" class="btn btn-success">New user</a>
+                <table class="table table-bordered">
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Active
+                    </th>
+                    {% for user in users %}
+                        <tr>
+                            {% if user.username != 'admin' %}
+                            <td class="active">{{ user.username }}</td>
+                            <td class="success">
+                                <a href="/lock/{{ user.username }}">
+                                    {% if user.enabled %} true {% else %} false {% endif %}
+                                </a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% endblock fos_user_content %}
+

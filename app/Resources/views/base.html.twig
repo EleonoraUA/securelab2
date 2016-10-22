@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src={{ asset('bundles/framework/js/jquery-1.12.3.min.js') }}></script>
+        <link rel="stylesheet" type="text/css" href={{ asset('bundles/framework/css/bootstrap.css') }}>
+        <script src={{ asset('bundles/framework/js/bootstrap.js') }}></script>
+        <title>{% block title %}Security labWork1{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+        {% block body %}
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a class="navbar-brand" href="#">Welcome, {{ app.user.username }}</a>
+                        {% else %}
+                            <a class="navbar-brand" href="#">Security lab</a>
+                        {% endif %}
+
+                    </div>
+                    <ul class="nav navbar-nav">
+                        {#<li class="active"><a href="#">About</a></li>#}
+                        <li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+</html>
